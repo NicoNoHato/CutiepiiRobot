@@ -29,14 +29,14 @@ def afk(update: Update, context: CallbackContext):
         reason = args[1]
         if len(reason) > 100:
             reason = reason[:100]
-            notice = "\nYour afk reason was shortened to 100 characters."
+            notice = "\nAlasan AFK kamu telah dipersingkat dari 100 Kata."
     else:
         reason = ""
 
     sql.set_afk(update.effective_user.id, reason)
     fname = update.effective_user.first_name
     try:
-        update.effective_message.reply_text("{} ➤ Sayonara {} ! #afk".format(
+        update.effective_message.reply_text("{} ➤ Baybay {} ! #afk".format(
             notice, fname))
     except BadRequest:
         pass
@@ -57,9 +57,9 @@ def no_longer_afk(update: Update, context: CallbackContext):
         firstname = update.effective_user.first_name
         try:
             options = [
-                '{} Cutie Cutie!', '{} Yōkoso!', '{} welcome back.. no one missed you!!',
-                '{} why you came here?', '{} is wasting his time in this chat!', '{} welcome back...Now pay 100$ or get banned.',
-                'Yamete...Yamete-kudasai {}-sama', 'Oh my! {} got no chills!!', '{} got a girlfriend! thats why he was afk.', '{} welcome to hell again.', '{} is here! start the show!', '{} bruh you should delete your telegram account.', '{} ahem! my love is here!', '{} damn... I saw you were online.. reading the messages.. but u were afk.', '{} yess.. lets start trashing the chat!', 'Spammer just arrived.. be ready everyone.. let me grab my ban-hammer!', '{} please be gentle with me... in the chat..'             
+                'Yo wassap {}!', 'Welkombek {}!', 'Selamat Datang kembali {}, Gada yang kangen kamu btw',
+                '{} Kenapa lu kesini woe?', '{} itu nyimakin chat ini dari tadi!', 'Yo {} Mau Mandi dulu?, Makan dulu?, Atau... @PicoKwai? >~<',
+                'Yamete...Yamete-kudasai {}-sama', 'Oh gawat! {} Gabisa bersantuy!!', 'Si {} dapet Pacar makanya dia afk tadi.', 'Selamat datang kembali {}! Tentunya dineraka ini wahaha!!', '{} disini! Mari mulai kontesnya!', '{} Keknya lu harus delete akun beb.', '{} ahem! Kesayanganku ada disini!', 'Ey {} Bangsul, Gue liat lu nyimak tapi ga nimbrung, Tabok nih (°-°).', '{} cuy kita spam di grup kuy :3', '{}Kang spam telah tiba, Siap siap kawan! Gue bakal siapin palu bannednya!', 'Yasashiku shinasai yo {} oni chan...'             
             ]
             chosen_option = random.choice(options)
             update.effective_message.reply_text(chosen_option.format(firstname))
@@ -124,12 +124,12 @@ def check_afk(update, context, user_id, fst_name, userc_id):
         if not user.reason:
             if int(userc_id) == int(user_id):
                 return
-            res = "{} is afk".format(fst_name)
+            res = "{} sedang afk".format(fst_name)
             update.effective_message.reply_text(res)
         else:
             if int(userc_id) == int(user_id):
                 return
-            res = "{} is afk.\nReason: <code>{}</code>\n#afk".format(
+            res = "{} sedang afk.\nKarena lagi: <code>{}</code>\n#afk".format(
                 html.escape(fst_name), html.escape(user.reason))
             update.effective_message.reply_text(res, parse_mode="html")
 
