@@ -14,7 +14,7 @@ from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, ParseMode,
                       Update ,replymarkup)
 from telegram.ext import CallbackContext, CallbackQueryHandler, run_async
 
-info_btn = "More Information"
+info_btn = "Informasi lebih lanjut"
 prequel_btn = "⬅️"
 sequel_btn = "➡️"
 close_btn = "❌"
@@ -24,9 +24,9 @@ def shorten(description, info='anilist.co'):
     msg = ""
     if len(description) > 700:
         description = description[0:500] + '....'
-        msg += f"\n*Description*: _{description}_[Read More]({info})"
+        msg += f"\n*Deksripsi*: _{description}_[Baca Selengkapnya]({info})"
     else:
-        msg += f"\n*Description*:_{description}_"
+        msg += f"\n*Deksripsi*:_{description}_"
     return msg
 
 
@@ -173,7 +173,7 @@ def airing(update, context):
             'query': airing_query,
             'variables': variables
         }).json()['data']['Media']
-    msg = f"*Name*: *{response['title']['romaji']}*(`{response['title']['native']}`)\n*ID*: `{response['id']}`"
+    msg = f"*Judul*: *{response['title']['romaji']}*(`{response['title']['native']}`)\n*ID*: `{response['id']}`"
     if response['nextAiringEpisode']:
         time = response['nextAiringEpisode']['timeUntilAiring'] * 1000
         time = t(time)
@@ -189,7 +189,7 @@ def anime(update, context):
     user = update.effective_user
     search = message.text.split(' ', 1)
     if len(search) == 1:
-        update.effective_message.reply_text('Format : /anime < anime name >')
+        update.effective_message.reply_text('Format : /anime < Nama Anime >')
         return
     else:
         search = search[1]
@@ -200,7 +200,7 @@ def anime(update, context):
             'variables': variables
         }).json()
     if 'errors' in json.keys():
-        update.effective_message.reply_text('Anime not found')
+        update.effective_message.reply_text('Anime gak ketemu :(')
         return
     if json:
         json = json['data']['Media']
@@ -227,12 +227,12 @@ def anime(update, context):
         image = json.get('bannerImage', None)
         if trailer:
             buttons = [[
-                InlineKeyboardButton("More Info", url=info),
+                InlineKeyboardButton("Info Lebih", url=info),
                 InlineKeyboardButton("Trailer 🎬", url=trailer)
             ]]
         else:
-            buttons = [[InlineKeyboardButton("More Info", url=info)]]
-        buttons += [[InlineKeyboardButton("Add To Watchlist", callback_data=f"xanime_watchlist={anime_name_w}")]]
+            buttons = [[InlineKeyboardButton("Info Lebih", url=info)]]
+        buttons += [[InlineKeyboardButton("Tambah ke Daftar Putar", callback_data=f"xanime_watchlist={anime_name_w}")]]
         if image:
             try:
                 update.effective_message.reply_photo(
@@ -259,7 +259,7 @@ def character(update, context):
     search = message.text.split(' ', 1)
     if len(search) == 1:
         update.effective_message.reply_text(
-            'Format : /character < character name >')
+            'Format : /character < Nama Karakter >')
         return
     search = search[1]
     variables = {'query': search}
@@ -269,7 +269,7 @@ def character(update, context):
             'variables': variables
         }).json()
     if 'errors' in json.keys():
-        update.effective_message.reply_text('Character not found')
+        update.effective_message.reply_text('Karakter gak ketemu :(')
         return
     if json:
         json = json['data']['Character']
@@ -281,7 +281,7 @@ def character(update, context):
         image = json.get('image', None)
         if image:
             image = image.get('large')
-            buttons = [[InlineKeyboardButton("Add To Favorite Character", callback_data=f"xanime_fvrtchar={char_name}")]]
+            buttons = [[InlineKeyboardButton("Tambah ke Karakter Tersayang", callback_data=f"xanime_fvrtchar={char_name}")]]
             update.effective_message.reply_photo(
                 photo=image,
                 caption=msg.replace('<b>', '</b>'),
@@ -299,7 +299,7 @@ def manga(update, context):
     message = update.effective_message
     search = message.text.split(' ', 1)
     if len(search) == 1:
-        update.effective_message.reply_text('Format : /manga < manga name >')
+        update.effective_message.reply_text('Format : /manga < Nama Manga >')
         return
     search = search[1]
     variables = {'search': search}
@@ -310,7 +310,7 @@ def manga(update, context):
         }).json()
     msg = ''
     if 'errors' in json.keys():
-        update.effective_message.reply_text('Manga not found')
+        update.effective_message.reply_text('Manga gak ketemu :(')
         return
     if json:
         json = json['data']['Media']
@@ -378,10 +378,10 @@ def user(update, context):
     try:
         user = jikan.user(search_query)
     except jikanpy.APIException:
-        update.effective_message.reply_text("Username not found.")
+        update.effective_message.reply_text("Username gak ketemu :(")
         return
 
-    progress_message = update.effective_message.reply_text("Searching.... ")
+    progress_message = update.effective_message.reply_text("Mencari.... ")
 
     date_format = "%Y-%m-%d"
     if user['image_url'] is None:
