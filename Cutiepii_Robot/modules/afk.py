@@ -59,7 +59,7 @@ def no_longer_afk(update: Update, context: CallbackContext):
             options = [
                 'Yo wassap {}!', 'Welkombek {}!', 'Selamat Datang kembali {}, Gada yang kangen kamu btw',
                 '{} Kenapa lu kesini woe?', '{} itu nyimakin chat ini dari tadi!', 'Yo {} Mau Mandi dulu?, Makan dulu?, Atau... @PicoKwai? >~<',
-                'Yamete...Yamete-kudasai {}-sama', 'Oh gawat! {} Gabisa bersantuy!!', 'Si {} dapet Pacar makanya dia afk tadi.', 'Selamat datang kembali {}! Tentunya dineraka ini wahaha!!', '{} disini! Mari mulai kontesnya!', '{} Keknya lu harus delete akun beb.', '{} ahem! Kesayanganku ada disini!', 'Ey {} Bangsul, Gue liat lu nyimak tapi ga nimbrung, Tabok nih (°-°).', '{} cuy kita spam di grup kuy :3', '{}Kang spam telah tiba, Siap siap kawan! Gue bakal siapin palu bannednya!', 'Yasashiku shinasai yo {} oni chan...'             
+                'Yamete...Yamete-kudasai {}-sama', 'Oh gawat! {} Gabisa bersantuy!!', 'Si {} dapet Pacar makanya dia afk tadi.', 'Selamat datang kembali {}! Tentunya dineraka ini wahaha!!', '{} disini! Mari mulai kontesnya!', '{} Keknya lu harus delete akun beb.', '{} ahem! Kesayanganku ada disini!', 'Ey {} Bangsul, Gue liat lu nyimak tapi ga nimbrung, Tabok nih (°-°).', '{} cuy kita spam di grup kuy :3', '{} Kang spam telah tiba, Siap siap kawan! Gue bakal siapin palu bannednya!', 'Yasashiku shinasai yo {} oni chan...'             
             ]
             chosen_option = random.choice(options)
             update.effective_message.reply_text(chosen_option.format(firstname))
